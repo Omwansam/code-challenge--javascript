@@ -7,16 +7,16 @@ function calculateNetSalary(basicSalary, benefits){
    const grossSalary =basicSalary + benefits;
 
     
-    const NHIF_DEDUCTIONS = 2400; // Monthly NHIF maximum deductions
-    const NSSF_EMPLOYEE_RATE = 0.06; //6% of basic salary for NSSF employer rate deductions
-    const NSSF_EMPLOYER_RATE = 0.06; //6% of basic salary for NSSF employee rate deductions
+    const nhifDeductions = 2400; // Monthly NHIF maximum deductions
+    const nssfEmployeeRate = 0.06; //6% of basic salary for NSSF employer rate deductions
+    const nssfEmployerRate = 0.06; //6% of basic salary for NSSF employee rate deductions
     
     //Calculate NSSF deductions
-    const nssfEmployerDeductions = NSSF_EMPLOYER_RATE * basicSalary;
-    const nssfEmployeeDeductions = NSSF_EMPLOYEE_RATE * basicSalary;
+    const nssfEmployerDeductions = nssfEmployerRate * basicSalary;
+    const nssfEmployeeDeductions = nssfEmployeeRate * basicSalary;
 
     // calculate NHIF deductions
-    const nhifDeduction = Math.min(NHIF_DEDUCTIONS, 0.01 * grossSalary);
+    const nhifDeduction = Math.min(nhifDeductions, 0.02 * grossSalary);
 
 
     // Calculate taxable income 
@@ -40,10 +40,10 @@ function calculateNetSalary(basicSalary, benefits){
     };
 }
 
-// Function to calculate PAYE tax
+// Function to calculate PAYE 
 function calculatePAYE(taxableIncome) {
     // Tax rates and limts
-    const TAX_RATES = [
+    const taxRates = [
         { limit: 20000, rate: 0.1 },
         { limit: 30000, rate: 0.25 },
         { limit: 40000, rate: 0.30 },
@@ -56,9 +56,9 @@ function calculatePAYE(taxableIncome) {
     let taxPayable = 0;
     let lastThreshold = 0;
 
-    for (let i = 0; i < TAX_RATES.length; i++) {
-        let rate = TAX_RATES[i].rate;
-        let limit = TAX_RATES[i].limit;
+    for (let i = 0; i < taxRates.length; i++) {
+        let rate = taxRates[i].rate;
+        let limit = taxRates[i].limit;
 
         if (taxableIncome <= limit) {
             taxPayable += (taxableIncome - lastThreshold) * rate;
@@ -72,7 +72,7 @@ function calculatePAYE(taxableIncome) {
     return taxPayable;
 }
 // How to output the values
-console.log("PAYE (Tax):", individual.paye.toFixed(2));
+console.log("PAYE :", individual.paye.toFixed(2));
 console.log("NSSF Employer Deductions:", individual.nssfEmployerDeductions.toFixed(2));
 console.log("NSSF Employee Deductions:", individual.nssfEmployeeDeductions.toFixed(2));
 console.log("Net Salary:", individual.netSalary.toFixed(2));
