@@ -42,7 +42,7 @@ function calculateNetSalary(basicSalary, benefits){
 
 // Function to calculate PAYE tax
 function calculatePAYE(taxableIncome) {
-    // Tax rates and thresholds 
+    // Tax rates and limts
     const TAX_RATES = [
         { limit: 20000, rate: 0.1 },
         { limit: 30000, rate: 0.25 },
